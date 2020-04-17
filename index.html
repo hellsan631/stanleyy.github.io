@@ -1,0 +1,32 @@
+<html>
+<body>
+<h1>Stan has not been outdoors for: <span id="stan-time">Hi</span></h1>
+</body>
+<script>
+const stanLast = new Date('March 23, 2020 10:04:31 EDT');
+const MIN_SEC = 60;
+const HOUR_SEC = 60 * MIN_SEC;
+const DAY_SEC = 24 * HOUR_SEC;
+
+function getTimeDeltaStr(orig, curr) {
+  const delta = (curr - orig) / 1000;
+  const days = Math.floor(delta / DAY_SEC);
+  const hours = Math.floor(delta % DAY_SEC / HOUR_SEC);
+  const minutes = Math.floor(delta % HOUR_SEC / MIN_SEC);
+  const seconds = Math.floor(delta % MIN_SEC)
+  return `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+}
+
+function refresh() {
+  const now = new Date();
+  var stanSpan = document.getElementById('stan-time');
+  stanSpan.innerText = getTimeDeltaStr(stanLast, now);
+}
+
+refresh();
+
+let loop = setInterval(function(){
+  refresh();
+}, 1000)
+</script>
+</html>
